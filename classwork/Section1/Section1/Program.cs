@@ -12,7 +12,7 @@ double payRate = Double.Parse(value);
 
 Console.WriteLine("Your pay is " + (hours * payRate));
 
-int x;
+//int x;
 double distanceFromMoon = 0;
 //distanceFromMoon = 0;
 char letterGrade;
@@ -26,7 +26,7 @@ firstName = lastName = "Sam";
 
 // Block statement
 {
-    decimal payRate;
+    //decimal payRate;
 
 }
 
