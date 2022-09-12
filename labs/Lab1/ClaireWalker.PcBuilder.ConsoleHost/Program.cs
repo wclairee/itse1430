@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿void DisplayMenu()
+{
+    Console.WriteLine("Claire Walker\n");
+    Console.WriteLine("ITSE 1430\n");
+    //Console.WriteLine(); 
+    //need to add current date
+
+
+
+}
