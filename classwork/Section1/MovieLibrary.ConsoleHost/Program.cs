@@ -8,10 +8,14 @@ bool isClassic = false;
 
 DisplayInformation();
 
-bool done = false;
+//bool done = false;
+var done = false;
+
 do
 {
-    MenuOption input = DisplayMenu();
+    //Type referencing - compiler figures out type based upon context
+    //MenuOption input = DisplayMenu();
+    var input = DisplayMenu();
     Console.WriteLine();
     switch (input)
     {
@@ -52,6 +56,8 @@ void DisplayInformation()
 MenuOption DisplayMenu ()
 {
     Console.WriteLine();
+    //Console.WriteLine("------------");
+    Console.WriteLine("".PadLeft(10, '-'));
     Console.WriteLine("A)dd Movie");
     Console.WriteLine("E)dit Movie");
     Console.WriteLine("V)iew Movie");
@@ -111,7 +117,8 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
         //Inline variable declarations
         //int result;
         //if (Int32.TryParse(value, out result))
-        if (Int32.TryParse(value, out int result))
+        //if (Int32.TryParse(value, out int result))
+        if (Int32.TryParse(value, out var result))
         {
             if (result >= minimumValue && result <= maximumValue)
             return result;
@@ -184,10 +191,28 @@ void ViewMovie ()
         return;
     };
 
-    Console.WriteLine(title);
-    Console.WriteLine(releaseYear);
-    Console.WriteLine("Length: " + runLength + " mins");
-    Console.WriteLine("MPAA Rating: " + rating);
-    Console.WriteLine("Classic: " + isClassic);
+
+    //String formatting
+    // Option 1 - concatenation
+    //Console.WriteLine("Length: " + runLength + " mins");
+
+
+    //Option 2 - String.Format
+    //Console.WriteLine(String.Format("Length: {0} mins", runLength));
+
+    //Option 3 - String interpolation
+    //Console.WriteLine($"Length: {runLength} mins");
+
+    //ToString
+    Console.WriteLine($"{title} ({releaseYear})");
+    //Console.WriteLine(releaseYear);
+    Console.WriteLine(releaseYear.ToString());
+    //Console.WriteLine("Length: " + runLength + " mins");
+    //Console.WriteLine(String.Format("Length: {0} mins", runLength));
+    Console.WriteLine($"Length: {runLength} mins");
+
+    Console.WriteLine($"Rated {rating}");
+    //Console.WriteLine($"This {(isClassic ? "is" : "is not")} a Classic");
+    Console.WriteLine($"Is Classic: {(isClassic ? "Yes" : "No")}");
     Console.WriteLine(description);
 }
