@@ -1,4 +1,6 @@
-﻿var done = false;
+﻿using System.ComponentModel.DataAnnotations;
+
+var done = false;
 decimal currentCartTotal = 0;
 var memoryChoice = 0;
 var processorChoice = 0;
@@ -9,6 +11,23 @@ do
 {
     var userResponse = DisplayMenu();
     Console.WriteLine();
+    if (userResponse == 1)
+        StartNewOrder();
+    else if (userResponse == 2)
+        ViewOrder();
+    else if (userResponse == 3)
+        ClearOrder();
+    else if (userResponse == 4)
+        ModifyOrder();
+    else if (userResponse == 5)
+    {
+        bool answer = ReadBoolean("Are you sure you want to quit? Y/N");
+        if (answer == true)
+            break;
+        else if (answer == false)
+
+
+    }
 } while (true);
 
 //Functions
@@ -21,7 +40,7 @@ void DisplayInfo ()
     Console.WriteLine();
 }
 
-string DisplayMenu ()
+int DisplayMenu()
 {
     Console.WriteLine($"The current cart total is ${currentCartTotal}.");
     Console.WriteLine("Press 1 to start a new order.");
@@ -32,14 +51,8 @@ string DisplayMenu ()
     do
     {
         string input = Console.ReadLine();
-        switch (input)
-        {
-            case ConsoleKey.N: return 'N';
-            case ConsoleKey.V: return 'V';
-            case ConsoleKey.C: return 'C';
-            case ConsoleKey.M: return 'M';
-            case ConsoleKey.Q: return 'Q';
-        };
+        int value = Int32.Parse(input);
+        return value;
     } while (true);
 }
 
