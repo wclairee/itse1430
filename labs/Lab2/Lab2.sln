@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClaireWalker.CharacterCreator.ConsoleHost", "ClaireWalker.CharacterCreator.ConsoleHost\ClaireWalker.CharacterCreator.ConsoleHost.csproj", "{433A135E-CAFE-4893-B29B-055A86C50FA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{433A135E-CAFE-4893-B29B-055A86C50FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{433A135E-CAFE-4893-B29B-055A86C50FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{433A135E-CAFE-4893-B29B-055A86C50FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{433A135E-CAFE-4893-B29B-055A86C50FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E756A7D-FD20-49EC-8B65-4FCCBB5DA8C0}
+	EndGlobalSection
+EndGlobal
