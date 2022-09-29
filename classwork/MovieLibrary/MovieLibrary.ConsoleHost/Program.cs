@@ -8,6 +8,8 @@ using MovieLibrary;
 DisplayInformation();
 
 Movie movie = null;
+MovieDatabase database = new MovieDatabase();
+
 //bool done = false;
 var done = false;
 
@@ -153,7 +155,9 @@ string ReadString ( string message, bool required )
 
 Movie AddMovie ()
 {
-    Movie movie = new Movie ();
+    Movie movie = new Movie("Title");
+    //movie = new Movie();
+    //movie.Title = "Title";
 
     //string title = "";
     //movie.title = ReadString("Enter a title: ", true);
@@ -167,6 +171,11 @@ Movie AddMovie ()
     movie.RunLength = ReadInt32("Enter a run length (in minutes): ", 0, 300);
 
     movie.ReleaseYear = ReadInt32("Enter the release year: ", 1900, 2100);
+    if (movie.ReleaseYear >= Movie.YearColorWasIntroduced)
+        Console.WriteLine("Wow that is an old movie");
+
+    //var emptyMovie = Movie.Empty;
+
     movie.Rating = ReadString("Entering MPAA rating: ", true);
 
     movie.IsClassic = ReadBoolean("Is this a classic? ");
@@ -176,6 +185,11 @@ Movie AddMovie ()
 
 Movie GetSelectedMovie()
 {
+    var item = database.Get(0);
+
+    //object obj = "Hello";
+    //obj = 10;
+    //obj = 4.15;
     return movie;
 }
 

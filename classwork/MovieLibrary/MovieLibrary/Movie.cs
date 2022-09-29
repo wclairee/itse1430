@@ -3,6 +3,34 @@
     /// <summary>Represents a movie.</summary>
     public class Movie
     {
+
+        public Movie () : this("", "")
+        { }
+
+        //no return type on constructors
+        //constructor chaining
+        public Movie ( string title ) : this(title, "")
+        {
+            //Init that field initializers cannot do
+            Title = title;
+        }
+
+        public Movie ( string title, string description )
+        {
+            //Initialize(title, description);
+
+            Title = title;
+            Description = description;
+        }
+
+        //Dont do this
+        //private void Initialize (string title, string description)
+        //{
+        //    Title = title;
+        //    Description = description;
+        //}
+
+        /// <summary> Gets the unique ID. </summary>
         public int Id { get; private set; }
 
         /// <summary>Gets or sets the title.</summary>
@@ -56,15 +84,23 @@
         }
         private string _rating;
 
+        /// <summary> Determines if the movie is black and white.</summary>
         public bool IsClassic { get; set; }
 
+        /// <summary> Determines if the movie is black and white. </summary>
         //public bool IsBlackAndWhite () { return _releaseYear < 1939; }
-
         public bool IsBlackAndWhite
         {
-            get { return ReleaseYear < 1939; }
+            get { return ReleaseYear < YearColorWasIntroduced; }
             //set { }
         }
+
+        //public fields are allowed when they are constants
+        public const int YearColorWasIntroduced = 1939;
+        //public readonly Movie Empty = new Movie();
+
+        //private Movie EmptyMovie { get; } = new Movie();
+        //private readonly Movie _emptyMovie= new Movie();
 
         /// <summary>Clones the existing movie.</summary>
         /// <returns>A copy of the movie.</returns>
@@ -88,6 +124,13 @@
             movie.ReleaseYear = ReleaseYear;
             movie.Rating = Rating;
             movie.IsClassic = IsClassic;
+        }
+
+        //Equals & GetHashCode - dont override
+        //GetType
+        public override string ToString ()
+        {
+            return Title;
         }
 
     }
