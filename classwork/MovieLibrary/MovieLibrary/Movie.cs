@@ -84,6 +84,32 @@
             movie.IsClassic = IsClassic;
         }
 
+        public bool Validate ( out string errorMessage )
+        {
+            if (Title.Length == 0)
+            {
+                errorMessage = "Title is required";
+                return false;
+            };
+            if (Rating.Length == 0)
+            {
+                errorMessage = "Rating is required";
+                return false;
+            };
+            if (RunLength <= 0)
+            {
+                errorMessage = "Run Length must be > 0";
+                return false;
+            };
+            if (ReleaseYear < 1900)
+            {
+                errorMessage = "Release Year must be >= 1900";
+                return false;
+            };
+
+            errorMessage = null;
+            return true;
+        }
         public override string ToString ()
         {
             var str = base.ToString();

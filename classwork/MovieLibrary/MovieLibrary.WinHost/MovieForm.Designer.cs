@@ -153,6 +153,7 @@
             // 
             // _btnCancel
             // 
+            this._btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._btnCancel.Location = new System.Drawing.Point(341, 306);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -162,8 +163,10 @@
             // 
             // MovieForm
             // 
+            this.AcceptButton = this._btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this._btnCancel;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this._btnCancel);
             this.Controls.Add(this._btnSave);
