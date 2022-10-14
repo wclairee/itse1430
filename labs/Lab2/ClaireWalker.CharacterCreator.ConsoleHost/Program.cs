@@ -5,6 +5,16 @@
 DisplayInfo();
 DisplayMenu();
 
+var done = false;
+
+do
+{
+    switch (DisplayMenu())
+    {
+        case MenuOption.Quit: done = HandleQuit(); break;
+    }
+} while (!done);
+
 void DisplayInfo ()
 {
     //information displays when application starts
@@ -14,7 +24,43 @@ void DisplayInfo ()
     Console.WriteLine();
 }
 
-void DisplayMenu()
+MenuOption DisplayMenu()
 {
-    
+    Console.WriteLine();
+    Console.WriteLine("Press Q to quit.");
+
+    switch (GetKeyInput(ConsoleKey.Q))
+    {
+        case ConsoleKey.Q: return MenuOption.Quit;
+    };
+
+    return 0;
+}
+
+bool HandleQuit()
+{
+    if (Confirm("Are you sure you want to quit (Y/N)?"))
+        return true;
+
+    return false;
+}
+
+bool Confirm( string message )
+{
+    Console.WriteLine(message);
+
+    return GetKeyInput(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
+}
+
+ConsoleKey GetKeyInput ( params ConsoleKey[] validKeys )
+{
+    do
+    {
+        var key = Console.ReadKey(true);
+        if (validKeys.Contains(key.Key))
+        {
+            Console.WriteLine();
+            return key.Key;
+        };
+    } while (true);
 }
