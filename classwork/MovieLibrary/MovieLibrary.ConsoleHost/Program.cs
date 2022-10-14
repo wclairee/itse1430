@@ -246,3 +246,60 @@ void ViewMovie ( Movie movie )
     var blackAndWhite = movie.IsBlackAndWhite;
     //movie.IsBlackAndWhite = true;
 }
+
+void DisplayObject ( object sender )
+{
+    int intValue = 10;
+
+    //Type casting & checking
+    // 1. C-style case (T)E
+    //      must be a valid cast
+    //      Blows up at runtime if fails
+    string str = (string)sender;
+    //str = (string)intValue;
+
+    // 2. Type checking using is ::= E is T
+    //      true if valid or false otherwise
+    //      Not valid on primitives (other than string)
+    if (sender is string)
+    {
+        //Do something
+        str = (string)sender;
+    };
+
+    // 3. Safe type case using as ::= E as T
+    //      Converts to T if valid or null otherwise
+    //      Doesn't work with primitives (other than string)
+    str = sender as string;
+    if (str != null) { };
+
+    // 4. Pattern matching ::= E is T id
+    //      Preferred approach
+    //      Assigns typed E to id and returns true, works with any type
+    if (sender is string str1)
+    {
+    };
+
+    // 5. Convert.ChangeType - DON'T USE THIS
+    //      .ToInt32() - DON'T USE THIS
+
+    // Null
+    //    Default value for class types
+    //    Member access crashes if instance is null
+    // 1. == or != null
+    // 2. conditional operator
+    //str.ToString();
+    if (str != null)
+    {
+        var str2 = str.ToString();
+    };
+    var str3 = (str != null) ? str.ToString() : "";
+
+    // 3. Null coalescing ::= E ?? E
+    str3 = str ?? ""; // str ?? str2 ?? str3 ?? "";
+
+    // 4. Null conditional ::= instance?.member
+    //      (str != null) ? str.ToString() : null;
+    str3 = str?.ToString();
+
+}
