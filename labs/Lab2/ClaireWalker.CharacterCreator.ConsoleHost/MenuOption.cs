@@ -4,5 +4,6 @@
 public enum MenuOption
 {
     Quit = 1,
+    AddNewCharacter,
 
 }
