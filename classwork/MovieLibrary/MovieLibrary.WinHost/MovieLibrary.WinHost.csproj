@@ -6,6 +6,8 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>Claire Walker</Authors>
+    <Product>Movie Library</Product>
   </PropertyGroup>
 
   <ItemGroup>

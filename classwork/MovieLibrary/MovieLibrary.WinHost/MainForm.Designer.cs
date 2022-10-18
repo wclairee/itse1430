@@ -66,6 +66,7 @@
             this.eExitToolStripMenuItem.Name = "eExitToolStripMenuItem";
             this.eExitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.eExitToolStripMenuItem.Text = "&Exit";
+            this.eExitToolStripMenuItem.Click += new System.EventHandler(this.OnFileExit);
             // 
             // moviesToolStripMenuItem
             // 
@@ -81,14 +82,14 @@
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addToolStripMenuItem.Text = "&Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.OnMovieAdd);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.editToolStripMenuItem.Text = "&Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.OnMovieEdit);
             // 
@@ -96,7 +97,7 @@
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnMovieDelete);
             // 
@@ -112,16 +113,18 @@
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnHelpAbout);
             // 
             // _lstMovies
             // 
+            this._lstMovies.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lstMovies.FormattingEnabled = true;
             this._lstMovies.ItemHeight = 15;
-            this._lstMovies.Location = new System.Drawing.Point(12, 40);
+            this._lstMovies.Location = new System.Drawing.Point(0, 24);
             this._lstMovies.Name = "_lstMovies";
-            this._lstMovies.Size = new System.Drawing.Size(776, 379);
+            this._lstMovies.Size = new System.Drawing.Size(800, 426);
             this._lstMovies.TabIndex = 1;
             // 
             // MainForm
