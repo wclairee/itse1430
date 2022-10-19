@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//ITSE 1430 
+//Fall 2022
+//Claire Walker
 
 namespace ClaireWalker.CharacterCreator
 {
@@ -27,7 +25,7 @@ namespace ClaireWalker.CharacterCreator
         private string _background;
 
         /// <summary>Gets or sets the strength rating of the character.</summary>
-        public int Strength { get; set; } = 1;
+        public int Strength { get { return _strength; } set { _strength = value; } }
         private int _strength;
 
         /// <summary>Gets or sets the charisma rating of the character.</summary>
@@ -45,5 +43,27 @@ namespace ClaireWalker.CharacterCreator
         /// <summary>Gets or sets the constitution rating for the character.</summary>
         public int Constitution { get { return _constitution; } set { _constitution = value; } }
         private int _constitution;
+
+        public Character Clone()
+        {
+            var character = new Character();
+            CopyTo(character);
+
+            return character;
+        }
+
+        public void CopyTo (Character character)
+        {
+            character.Name = Name;
+            character.Profession = Profession;
+            character.Background = Background;
+            character.Race = Race; 
+            character.Strength = Strength;
+            character.Charisma = Charisma;
+            character.Intelligence = Intelligence;
+            character.Agility = Agility;
+            character.Constitution = Constitution;
+
+        }
     }
 }
