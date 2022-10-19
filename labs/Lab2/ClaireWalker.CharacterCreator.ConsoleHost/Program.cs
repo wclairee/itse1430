@@ -13,15 +13,24 @@ do
 {
     var input = DisplayMenu();
 
-    switch ( input )
+    switch (input)
     {
         case MenuOption.AddNewCharacter:
         {
-            var theCharacter = AddNewCharacter();
-            character = theCharacter.Clone();
+            character = AddNewCharacter();
             break;
         }
-        case MenuOption.ViewCharacter: HandleViewCharacter( character ); break;
+        case MenuOption.ViewCharacter: HandleViewCharacter(character); break;
+        case MenuOption.EditCharacter:
+        {
+            character = HandleEditCharacter(character);
+            break;
+        }
+        case MenuOption.DeleteCharacter:
+        {
+            character = HandleDeleteCharacter();
+            break;
+        }
         case MenuOption.Quit: done = HandleQuit(); break;
     }
 
@@ -44,13 +53,18 @@ MenuOption DisplayMenu ()
         Console.WriteLine();
         Console.WriteLine("Press A to add a new character.");
         Console.WriteLine("Press V to view your character.");
+        Console.WriteLine("Press E to edit your character.");
+        Console.WriteLine("Press D to delete your character.");
         Console.WriteLine("Press Q to quit.");
+        Console.WriteLine();
 
         ConsoleKeyInfo key = Console.ReadKey(true);
         switch (key.Key)
         {
             case ConsoleKey.A: return MenuOption.AddNewCharacter;
             case ConsoleKey.V: return MenuOption.ViewCharacter;
+            case ConsoleKey.E: return MenuOption.EditCharacter;
+            case ConsoleKey.D: return MenuOption.DeleteCharacter;
             case ConsoleKey.Q: return MenuOption.Quit;
         };
 
@@ -139,59 +153,7 @@ ConsoleKey GetKeyInput ( params ConsoleKey[] validKeys )
     } while (true);
 }
 
-Character AddNewCharacter()
-{
-    Character character = new Character();
-
-    character.Name = ReadString("Enter the name of your character: ", true);
-
-    Profession _profession = HandleProfession();
-    if (_profession == Profession.Fighter)
-            character.Profession = "Fighter";
-    else if (_profession == Profession.Hunter)
-            character.Profession = "Hunter";
-    else if (_profession == Profession.Priest)
-            character.Profession = "Priest";
-    else if (_profession == Profession.Rogue)
-            character.Profession = "Rogue";
-    else if (_profession == Profession.Wizard)
-            character.Profession = "Wizard";
-
-    Race _race = HandleRace();
-    if (_race == Race.Dwarf)
-            character.Race = "Dwarf";
-    else if (_race == Race.Elf)
-            character.Race = "Elf";
-    else if (_race == Race.Gnome)
-            character.Race = "Gnome";
-    else if (_race == Race.Fairy)
-            character.Race = "Fairy";
-    else if (_race == Race.Human)
-            character.Race = "Human";
-
-    Console.WriteLine("");
-    character.Background = ReadString("Enter the background information on your character (Optional): ", false);
-    character.Strength = ReadInt32("Enter the strength of your character using a number between 1-100: ", 1, 100);
-    character.Charisma = ReadInt32("Enter the charisma of your character using a number between 1-100: ", 1, 100);
-    character.Intelligence = ReadInt32("Enter the intelligence of your character using a number between 1-100: ", 1, 100);
-    character.Agility = ReadInt32("Enter the agility of your character using a number between 1-100: ", 1, 100);
-    character.Constitution = ReadInt32("Enter the constitution of your character using a number between 1-100: ", 1, 100);
-
-    return character;
-}
-
-void HandleViewCharacter (Character character)
-{
-    if (character == null)
-    {
-        Console.WriteLine("There is no character available to view.");
-        return;
-    };
-
-    DisplayCharacter(character);
-}
-
-void DisplayCharacter (Character character)
+void DisplayCharacter ( Character character )
 {
     Console.WriteLine($"Name: {character.Name}");
     Console.WriteLine($"Profession: {character.Profession}");
@@ -208,7 +170,109 @@ void DisplayCharacter (Character character)
     Console.WriteLine($"Constitution: {character.Constitution}");
 }
 
-Profession HandleProfession ()
+void HandleViewCharacter (Character character)
+{
+    if (character == null)
+    {
+        Console.WriteLine("There is no character available to view.");
+        return;
+    };
+
+    DisplayCharacter(character);
+}
+
+Character AddNewCharacter ()
+{
+    Character character = new Character();
+
+    character.Name = ReadString("Enter the name of your character: ", true);
+    character = HandleProfession(character);
+    character = HandleRace(character);
+    Console.WriteLine("");
+    character.Background = ReadString("Enter the background information on your character (Optional): ", false);
+    character.Strength = ReadInt32("Enter the strength of your character using a number between 1-100: ", 1, 100);
+    character.Charisma = ReadInt32("Enter the charisma of your character using a number between 1-100: ", 1, 100);
+    character.Intelligence = ReadInt32("Enter the intelligence of your character using a number between 1-100: ", 1, 100);
+    character.Agility = ReadInt32("Enter the agility of your character using a number between 1-100: ", 1, 100);
+    character.Constitution = ReadInt32("Enter the constitution of your character using a number between 1-100: ", 1, 100);
+
+    return character;
+}
+
+Character HandleEditCharacter (Character character)
+{
+    if (character == null)
+    {
+        character = AddNewCharacter();
+        return character;
+    };
+
+    character = EditCharacter();
+    return character;
+}
+
+Character EditCharacter()
+{
+    Console.WriteLine("Which character trait would you like to change?");
+    Console.WriteLine("Select N for name.");
+    Console.WriteLine("Select P for profession.");
+    Console.WriteLine("Select R for race.");
+    Console.WriteLine("Select B for background.");
+    Console.WriteLine("Select S for strength.");
+    Console.WriteLine("Select C for charisma.");
+    Console.WriteLine("Select I for intelligence.");
+    Console.WriteLine("Select A for agility.");
+    Console.WriteLine("Select X for constitution.");
+
+    switch(GetKeyInput(ConsoleKey.N, ConsoleKey.P, ConsoleKey.R, ConsoleKey.B, ConsoleKey.S, ConsoleKey.C, ConsoleKey.I, ConsoleKey.A, ConsoleKey.X))
+    {
+        case ConsoleKey.N:
+        {
+            Console.WriteLine("What would you like the new name to be?");
+            character.Name = Console.ReadLine();
+            break;
+        }
+        case ConsoleKey.P: character = HandleProfession(character); break;
+        case ConsoleKey.R: character = HandleRace(character); break;
+        case ConsoleKey.B:
+        {
+            Console.WriteLine("What would you like the new background to be?");
+            character.Background = Console.ReadLine();
+            break;
+        }
+        case ConsoleKey.S:
+        {
+            character.Strength = ReadInt32("What would you like the new strength to be?", 1, 100);
+            break;
+        }
+        case ConsoleKey.C:
+        {
+            character.Charisma = ReadInt32("What would you like the new charisma to be?", 1, 100);
+            break;
+        }
+        case ConsoleKey.I:
+        {
+            character.Intelligence = ReadInt32("What would you like the new intelligence to be?", 1, 100);
+            break;
+        }
+        case ConsoleKey.A:
+        {
+            character.Agility = ReadInt32("What would you like the new agility to be?", 1, 100);
+            break;
+        }
+
+        case ConsoleKey.X:
+        {
+            character.Constitution = ReadInt32("What would you like the new constitution to be?", 1, 100);
+            break;
+        }
+    }
+
+    return character;
+
+}
+
+Character HandleProfession ( Character character )
 {
     do
     {
@@ -224,17 +288,20 @@ Profession HandleProfession ()
         ConsoleKeyInfo key = Console.ReadKey(true);
         switch (key.Key)
         {
-            case ConsoleKey.H: return Profession.Hunter;
-            case ConsoleKey.W: return Profession.Wizard;
-            case ConsoleKey.P: return Profession.Priest;
-            case ConsoleKey.F: return Profession.Fighter;
-            case ConsoleKey.R: return Profession.Rogue;
+
+            case ConsoleKey.H: character.Profession = "Hunter"; break;
+            case ConsoleKey.W: character.Profession = "Wizard"; break;
+            case ConsoleKey.P: character.Profession = "Priest"; break;
+            case ConsoleKey.F: character.Profession = "Fighter"; break;
+            case ConsoleKey.R: character.Profession = "Rogue"; break;
         };
+
+        return character;
 
     } while (true);
 }
 
-Race HandleRace ()
+Character HandleRace ( Character character )
 {
     do
     {
@@ -250,12 +317,38 @@ Race HandleRace ()
         ConsoleKeyInfo key = Console.ReadKey(true);
         switch (key.Key)
         {
-            case ConsoleKey.D: return Race.Dwarf;
-            case ConsoleKey.E: return Race.Elf;
-            case ConsoleKey.G: return Race.Gnome;
-            case ConsoleKey.F: return Race.Fairy;
-            case ConsoleKey.H: return Race.Human;
+
+            case ConsoleKey.D: character.Race = "Dwarf"; break;
+            case ConsoleKey.E: character.Race = "Elf"; break;
+            case ConsoleKey.G: character.Race = "Gnome"; break;
+            case ConsoleKey.F: character.Race = "Fairy"; break;
+            case ConsoleKey.H: character.Race = "Human"; break;
         };
+
+        return character;
 
     } while (true);
 }
+
+Character HandleDeleteCharacter ()
+{
+    if (character == null)
+    {
+        Console.WriteLine("There is no character available to delete.");
+        return character;
+    }
+
+    if (!Confirm("Are you sure you want to delete your character? (Y/N) "))
+        return character;
+
+    else if (character != null)
+       character = DeleteCharacter();
+    return character;
+}
+
+Character DeleteCharacter()
+{
+    character = null;
+    return character;
+}
+
