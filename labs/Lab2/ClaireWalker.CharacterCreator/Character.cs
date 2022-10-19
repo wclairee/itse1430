@@ -43,27 +43,5 @@ namespace ClaireWalker.CharacterCreator
         /// <summary>Gets or sets the constitution rating for the character.</summary>
         public int Constitution { get { return _constitution; } set { _constitution = value; } }
         private int _constitution;
-
-        public Character Clone()
-        {
-            var character = new Character();
-            CopyTo(character);
-
-            return character;
-        }
-
-        public void CopyTo (Character character)
-        {
-            character.Name = Name;
-            character.Profession = Profession;
-            character.Background = Background;
-            character.Race = Race; 
-            character.Strength = Strength;
-            character.Charisma = Charisma;
-            character.Intelligence = Intelligence;
-            character.Agility = Agility;
-            character.Constitution = Constitution;
-
-        }
     }
 }

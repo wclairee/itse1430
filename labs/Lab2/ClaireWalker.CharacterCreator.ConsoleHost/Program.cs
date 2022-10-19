@@ -36,14 +36,6 @@ do
 
 } while (!done);
 
-void DisplayInfo ()
-{
-    //information displays when application starts
-    Console.WriteLine("Claire Walker");
-    Console.WriteLine("ITSE 1430");
-    Console.WriteLine("Fall 2022");
-    Console.WriteLine();
-}
 
 MenuOption DisplayMenu ()
 {
@@ -71,18 +63,16 @@ MenuOption DisplayMenu ()
     } while (true);
 }
 
-bool ReadBoolean ( string message )
+ConsoleKey GetKeyInput ( params ConsoleKey[] validKeys )
 {
-    Console.Write( message );
-
     do
     {
-        ConsoleKeyInfo key = Console.ReadKey();
-        if (key.Key == ConsoleKey.Y)
-            return true;
-        else if (key.Key == ConsoleKey.N)
-            return false;
-
+        var key = Console.ReadKey(true);
+        if (validKeys.Contains(key.Key))
+        {
+            Console.WriteLine();
+            return key.Key;
+        };
     } while (true);
 }
 
@@ -102,7 +92,6 @@ int ReadInt32 ( string message, int minimumValue, int maximumValue )
         };
 
         Console.WriteLine("Value must be between " + minimumValue + " and " + maximumValue + ".");
-        Console.WriteLine("");
 
     } while (true);
 }
@@ -120,7 +109,6 @@ string ReadString ( string message, bool required )
             return value;
 
         Console.WriteLine("An entry is required.");
-        Console.WriteLine("");
 
     };
 }
@@ -140,37 +128,16 @@ bool Confirm ( string message )
     return GetKeyInput(ConsoleKey.Y, ConsoleKey.N) == ConsoleKey.Y;
 }
 
-ConsoleKey GetKeyInput ( params ConsoleKey[] validKeys )
+void DisplayInfo ()
 {
-    do
-    {
-        var key = Console.ReadKey(true);
-        if (validKeys.Contains(key.Key))
-        {
-            Console.WriteLine();
-            return key.Key;
-        };
-    } while (true);
+    //information displays when application starts
+    Console.WriteLine("Claire Walker");
+    Console.WriteLine("ITSE 1430");
+    Console.WriteLine("Fall 2022");
+    Console.WriteLine();
 }
 
-void DisplayCharacter ( Character character )
-{
-    Console.WriteLine($"Name: {character.Name}");
-    Console.WriteLine($"Profession: {character.Profession}");
-    Console.WriteLine($"Race: {character.Race}");
-
-    Console.WriteLine("");
-    Console.WriteLine($"Background: {character?.Background}");
-
-    Console.WriteLine("");
-    Console.WriteLine($"Strength: {character.Strength}");
-    Console.WriteLine($"Charisma: {character.Charisma}");
-    Console.WriteLine($"Intelligence: {character.Intelligence}");
-    Console.WriteLine($"Agility: {character.Agility}");
-    Console.WriteLine($"Constitution: {character.Constitution}");
-}
-
-void HandleViewCharacter (Character character)
+void HandleViewCharacter ( Character character )
 {
     if (character == null)
     {
@@ -179,6 +146,19 @@ void HandleViewCharacter (Character character)
     };
 
     DisplayCharacter(character);
+}
+
+void DisplayCharacter ( Character character )
+{
+    Console.WriteLine($"Name: {character.Name}");
+    Console.WriteLine($"Profession: {character.Profession}");
+    Console.WriteLine($"Race: {character.Race}");
+    Console.WriteLine($"Background: {character.Background}");
+    Console.WriteLine($"Strength: {character.Strength}");
+    Console.WriteLine($"Charisma: {character.Charisma}");
+    Console.WriteLine($"Intelligence: {character.Intelligence}");
+    Console.WriteLine($"Agility: {character.Agility}");
+    Console.WriteLine($"Constitution: {character.Constitution}");
 }
 
 Character AddNewCharacter ()
@@ -199,7 +179,7 @@ Character AddNewCharacter ()
     return character;
 }
 
-Character HandleEditCharacter (Character character)
+Character HandleEditCharacter ( Character character )
 {
     if (character == null)
     {
@@ -228,16 +208,14 @@ Character EditCharacter()
     {
         case ConsoleKey.N:
         {
-            Console.WriteLine("What would you like the new name to be?");
-            character.Name = Console.ReadLine();
+            character.Name = ReadString("Enter the name of your character: ", true);
             break;
         }
         case ConsoleKey.P: character = HandleProfession(character); break;
         case ConsoleKey.R: character = HandleRace(character); break;
         case ConsoleKey.B:
         {
-            Console.WriteLine("What would you like the new background to be?");
-            character.Background = Console.ReadLine();
+            character.Background = ReadString("Enter the background information on your character (Optional): ", false);
             break;
         }
         case ConsoleKey.S:
@@ -267,7 +245,7 @@ Character EditCharacter()
             break;
         }
     }
-
+    DisplayCharacter(character);
     return character;
 
 }
