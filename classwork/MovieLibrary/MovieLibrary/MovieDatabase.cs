@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,6 +10,52 @@ namespace MovieLibrary
 {
     public class MovieDatabase
     {
+
+        public MovieDatabase ()
+        {
+            var movies = new Movie[] {
+            //Object initializer syntax
+            //var movie = new Movie();
+            //movie.Title = "Jaws";
+            //movie.Rating = "PG";
+            //movie.RunLength = 210;
+            //movie.ReleaseYear = 1976;
+            //movie.Description = "Shark coastal horror film.";
+            //movie.IsClassic = true;
+
+                new Movie() {
+                    Title = "Jaws",
+                    Rating = "PG",
+                    RunLength = 210,
+                    ReleaseYear = 1976,
+                    Description = "Shark coastal horror film.",
+                    IsClassic = true,
+                },
+
+                new Movie() {
+                    Title = "Shrek",
+                    Rating = "PG",
+                    RunLength = 190,
+                    ReleaseYear = 2005,
+                    Description = "Family fantasy comedy.",
+                    IsClassic = true,
+                },
+
+                new Movie() {
+                    Title = "Dune",
+                    Rating = "PG-13",
+                    RunLength = 230,
+                    ReleaseYear = 2012,
+                    Description = "Scifi film.",
+                    IsClassic = false,
+                },
+            };
+            foreach (var movie in movies)
+            {
+                Add(movie, out var error);
+            };
+        }
+
         public virtual Movie Add ( Movie movie, out string errorMessage )
         {
             //Array
@@ -26,8 +73,19 @@ namespace MovieLibrary
                 errorMessage = "Movie cannot be null.";
                 return null;
             };
-            if (!movie.Validate(out errorMessage))
+
+            //Use IValidatable Object
+            //if (!movie.Validate(out errorMessage))
+            if (!new ObjectValidator().IsValid(movie, out errorMessage))
                 return null;
+
+            //Must be unique
+            var results = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(movie, new ValidationContext(movie), results, true))
+            {
+                errorMessage = results[0].ErrorMessage;
+                return null;
+            };
 
             //Must be unique
             var existing = FindByTitle(movie.Title);
@@ -99,7 +157,7 @@ namespace MovieLibrary
                 errorMessage = "Movie cannot be null.";
                 return false;
             };
-            if (!movie.Validate(out errorMessage))
+            if (!new ObjectValidator().IsValid(movie, out errorMessage))
                 return false;
 
             //Movie must already exist
