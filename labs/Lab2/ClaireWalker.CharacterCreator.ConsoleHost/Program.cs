@@ -51,6 +51,7 @@ MenuOption DisplayMenu ()
         Console.WriteLine();
 
         ConsoleKeyInfo key = Console.ReadKey(true);
+
         switch (key.Key)
         {
             case ConsoleKey.A: return MenuOption.AddNewCharacter;
