@@ -7,6 +7,28 @@ namespace MovieLibrary.WinHost
             InitializeComponent();
         }
 
+        protected override void OnFormClosing ( FormClosingEventArgs e )
+        {
+            base.OnFormClosing(e);
+
+            if (Confirm("Are you sure you want to leave?", "Close"))
+                return;
+
+            //Stop the event
+            e.Cancel = true;
+        }
+
+        protected override void OnFormClosed ( FormClosedEventArgs e )
+        {
+            base.OnFormClosed(e);
+        }
+
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+            UpdateUI();
+        }
+
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             var child = new MovieForm();
@@ -27,9 +49,6 @@ namespace MovieLibrary.WinHost
             } while (true);
         }
 
-        private Movie _movie;
-        private MovieDatabase _movies = new MovieDatabase();
-
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             var movie = GetSelectedMovie();
@@ -41,53 +60,6 @@ namespace MovieLibrary.WinHost
 
             _movies.Remove(movie.Id);
             UpdateUI();
-        }
-
-        protected override void OnFormClosing ( FormClosingEventArgs e )
-        {
-            base.OnFormClosing(e);
-
-            if (Confirm("Are you sure you want to leave?", "Close"))
-                return;
-
-            //Stop the event
-            e.Cancel = true;
-        }
-        protected override void OnFormClosed ( FormClosedEventArgs e )
-        {
-            base.OnFormClosed (e);
-        }
-
-        protected override void OnLoad (EventArgs e)
-        {
-            base.OnLoad(e);
-            UpdateUI();
-        }
-
-        private void UpdateUI ()
-        {
-            //Get movies
-            var movies = _movies.GetAll();
- 
-            _lstMovies.Items.Clear();
-            _lstMovies.Items.AddRange(movies);
-
-        }
-
-        private Movie GetSelectedMovie ()
-        {
-            return _lstMovies.SelectedItem as Movie;
-        }
-
-        private bool Confirm ( string message, string title )
-        {
-            DialogResult result = MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            return result == DialogResult.Yes;
-        }
-
-        private void DisplayError ( string message, string title )
-        {
-            MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -126,5 +98,40 @@ namespace MovieLibrary.WinHost
 
             about.ShowDialog();
         }
+
+        private void UpdateUI ()
+        {
+            //Get movies
+            var movies = _movies.GetAll();
+ 
+            _lstMovies.Items.Clear();
+            //TODO: Fix this...
+            //_lstMovies.Items.AddRange(movies);
+            foreach (var movie in movies)
+                _lstMovies.Items.Add(movie);
+
+        }
+
+        private Movie GetSelectedMovie ()
+        {
+            return _lstMovies.SelectedItem as Movie;
+        }
+
+        private bool Confirm ( string message, string title )
+        {
+            DialogResult result = MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            return result == DialogResult.Yes;
+        }
+
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+
+       // private Movie _movie;
+       // private MovieDatabase _movies = new MovieDatabase();
+        private IMovieDatabase _movies = new Memory.MemoryMovieDatabase();
     }
 }
