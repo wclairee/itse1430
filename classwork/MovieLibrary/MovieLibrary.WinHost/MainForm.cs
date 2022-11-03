@@ -26,7 +26,8 @@ namespace MovieLibrary.WinHost
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
-            UpdateUI();
+
+            UpdateUI(true);
         }
 
         private void OnMovieAdd ( object sender, EventArgs e )
@@ -99,21 +100,64 @@ namespace MovieLibrary.WinHost
             about.ShowDialog();
         }
 
-        private void UpdateUI ()
+        private void UpdateUI()
+        {
+            UpdateUI(false);
+        }
+        private void UpdateUI ( bool initialLoad )
         {
             //Get movies
             var movies = _movies.GetAll();
+
+            //Extension methods - static methods on static classes
+            // 1. Expose a static method as an instance method for discoverability
+            // 2. Called like instance methods (on an instance)
+            // 3. Compiler rewrites code to call static method on static class
+            //Enumerable.Count(movies) == movies.Count()
+            if (initialLoad &&
+                //movies.Count() == 0)
+                //movies.FirstOrDefault() == null)
+                movies.Any())
+            {
+                if (Confirm("Do you want to seed some movies?", "Database Empty"))
+                {
+                    //SeedMovieDatabase.Seed(_movies);
+                    _movies.Seed();
+                    movies = _movies.GetAll();
+                };
+
+            };
  
             _lstMovies.Items.Clear();
-            //TODO: Fix this...
-            //_lstMovies.Items.AddRange(movies);
-            foreach (var movie in movies)
-                _lstMovies.Items.Add(movie);
+
+            //Order movies by title, then by release year
+            var items = movies.OrderBy(OrderByTitle)
+                           .ThenBy(OrderByReleaseYear)
+                           .ToArray();
+            //movies = movies.ThenBy();
+
+            //Use Enumerable
+            //_lstMovies.Items.AddRange(Enumerable.ToArray(movies));
+            _lstMovies.Items.AddRange(items);
+            //foreach (var movie in movies)
+            //    _lstMovies.Items.Add(movie);
 
         }
+        private string OrderByTitle ( Movie movie )
+        {
+            return movie.Title;
+        }
 
+        private int OrderByReleaseYear( Movie movie )
+        {
+            return movie.ReleaseYear;
+        }
         private Movie GetSelectedMovie ()
         {
+
+            //var allTextBoxes = Controls.OfType<Textbox>();
+            //IEnumerable<Movie> temp = _lstMovies.SelectedItems.OfType<Movie>();
+
             return _lstMovies.SelectedItem as Movie;
         }
 

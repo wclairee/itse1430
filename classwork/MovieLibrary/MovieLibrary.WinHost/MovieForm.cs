@@ -58,8 +58,9 @@ namespace MovieLibrary.WinHost
             movie.RunLength = GetInt32(_txtRunLength);
             movie.ReleaseYear = GetInt32(_txtReleaseYear);
 
-            if (!new ObjectValidator().IsValid(movie, out var error))
-            {
+            //if (!new ObjectValidator().IsValid(movie, out var error))
+            if (!ObjectValidator.IsValid(movie, out var error))
+                {
                 DisplayError(error, "Save");
                 return;
             };

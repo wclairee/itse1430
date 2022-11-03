@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MovieLibrary
 {
-    public class ObjectValidator
+    public static class ObjectValidator
     {
-        public bool IsValid ( IValidatableObject instance, out string errorMessage )
+       // private ObjectValidator() { }
+
+        public static bool IsValid ( IValidatableObject instance, out string errorMessage )
         {
             var results = new List<ValidationResult>();
             if (!Validator.TryValidateObject(instance, new ValidationContext(instance), results, true))
@@ -18,5 +18,7 @@ namespace MovieLibrary
             errorMessage = null;
             return true;
         }
+
+        //private int _unused;
     }
 }
