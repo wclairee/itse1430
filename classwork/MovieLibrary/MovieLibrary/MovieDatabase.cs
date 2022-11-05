@@ -156,7 +156,7 @@
             {
                 errorMessage = "Movie does not exist.";
                 return false;
-            }
+            };
             //Must be unique
             var existing = FindByTitle(movie.Title);
             if (existing != null && existing.Id != id)
