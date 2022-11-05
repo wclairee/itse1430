@@ -28,18 +28,21 @@
         /// </summary>
         private void InitializeComponent ()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this._txtFirstName = new System.Windows.Forms.TextBox();
+            this._txtLastName = new System.Windows.Forms.TextBox();
+            this._txtEmail = new System.Windows.Forms.TextBox();
+            this._txtNotes = new System.Windows.Forms.TextBox();
+            this._chkIsFavorite = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -87,61 +90,70 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Is a Favorite?";
             // 
-            // textBox1
+            // _txtFirstName
             // 
-            this.textBox1.Location = new System.Drawing.Point(150, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(125, 27);
-            this.textBox1.TabIndex = 5;
+            this._txtFirstName.Location = new System.Drawing.Point(170, 36);
+            this._txtFirstName.Name = "_txtFirstName";
+            this._txtFirstName.Size = new System.Drawing.Size(125, 27);
+            this._txtFirstName.TabIndex = 5;
             // 
-            // textBox2
+            // _txtLastName
             // 
-            this.textBox2.Location = new System.Drawing.Point(170, 89);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 27);
-            this.textBox2.TabIndex = 6;
+            this._txtLastName.Location = new System.Drawing.Point(170, 89);
+            this._txtLastName.Name = "_txtLastName";
+            this._txtLastName.Size = new System.Drawing.Size(125, 27);
+            this._txtLastName.TabIndex = 6;
+            this._txtLastName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateLastName);
             // 
-            // textBox3
+            // _txtEmail
             // 
-            this.textBox3.Location = new System.Drawing.Point(172, 137);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 27);
-            this.textBox3.TabIndex = 7;
+            this._txtEmail.Location = new System.Drawing.Point(172, 137);
+            this._txtEmail.Name = "_txtEmail";
+            this._txtEmail.Size = new System.Drawing.Size(125, 27);
+            this._txtEmail.TabIndex = 7;
+            this._txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateEmail);
             // 
-            // textBox4
+            // _txtNotes
             // 
-            this.textBox4.Location = new System.Drawing.Point(177, 187);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(125, 27);
-            this.textBox4.TabIndex = 8;
+            this._txtNotes.Location = new System.Drawing.Point(177, 187);
+            this._txtNotes.Name = "_txtNotes";
+            this._txtNotes.Size = new System.Drawing.Size(125, 27);
+            this._txtNotes.TabIndex = 8;
             // 
-            // checkBox1
+            // _chkIsFavorite
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(176, 233);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(83, 24);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Favorite";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this._chkIsFavorite.AutoSize = true;
+            this._chkIsFavorite.Location = new System.Drawing.Point(176, 233);
+            this._chkIsFavorite.Name = "_chkIsFavorite";
+            this._chkIsFavorite.Size = new System.Drawing.Size(83, 24);
+            this._chkIsFavorite.TabIndex = 9;
+            this._chkIsFavorite.Text = "Favorite";
+            this._chkIsFavorite.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(271, 321);
+            this.button1.Location = new System.Drawing.Point(257, 328);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 29);
             this.button1.TabIndex = 10;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.OnSave);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(420, 328);
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button2.Location = new System.Drawing.Point(427, 328);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 29);
             this.button2.TabIndex = 11;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // _errors
+            // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._errors.ContainerControl = this;
             // 
             // AddContactForm
             // 
@@ -150,11 +162,11 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this._chkIsFavorite);
+            this.Controls.Add(this._txtNotes);
+            this.Controls.Add(this._txtEmail);
+            this.Controls.Add(this._txtLastName);
+            this.Controls.Add(this._txtFirstName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -162,6 +174,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AddContactForm";
             this.Text = "Add Contact";
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,12 +187,13 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private CheckBox checkBox1;
+        private TextBox _txtFirstName;
+        private TextBox _txtLastName;
+        private TextBox _txtEmail;
+        private TextBox _txtNotes;
+        private CheckBox _chkIsFavorite;
         private Button button1;
         private Button button2;
+        private ErrorProvider _errors;
     }
 }

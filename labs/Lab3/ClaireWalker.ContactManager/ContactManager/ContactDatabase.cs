@@ -106,8 +106,8 @@
             return true;
         }
 
-        protected abstract Contact FindByLastName ( string LastName );
+        protected abstract Contact FindByLastName ( string lastName );
 
-        protected abstract Contact UpdateCore ( int id, Contact contact );
+        protected abstract void UpdateCore ( int id, Contact contact );
     }
 }

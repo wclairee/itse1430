@@ -17,13 +17,13 @@
         /// <param name="contact"></param>
         /// <param name="errorMessage"></param>
         /// <returns></returns>
-        public Contact Get ( Contact contact, out string errorMessage );
+        Contact Get ( int id );
 
-        public IEnumerable<Contact> GetAll ();
+        IEnumerable<Contact> GetAll ();
 
-        public void Remove ( int id );
+        void Remove ( int id );
 
-        public bool Contact ( int id, Contact contact, out string errorMessage );
+        bool Update ( int id, Contact contact, out string errorMessage );
 
     }
 }

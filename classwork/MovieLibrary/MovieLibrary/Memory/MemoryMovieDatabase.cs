@@ -95,7 +95,7 @@
 
         //System.Collections.Generic
         //private Movie[] _movies = new Movie[100];
-        private List<Movie> _movies = new List<Movie>();
+        private List<Movie> _movies  = new List<Movie>();
         //private Collection<Movie> _movies = new Collection<Movie>();
         //List<string>;
         //  List<int>;
