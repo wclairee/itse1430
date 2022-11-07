@@ -1,6 +1,6 @@
 ﻿namespace ContactManager
 {
-    public static class SeedContactDatabase
+    public static class ContactDatabaseExtensions
     {
         public static void Seed ( this IContactDatabase database )
         {

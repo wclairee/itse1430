@@ -12,11 +12,7 @@
         Contact Add ( Contact contact, out string errorMessage );
 
         /// <summary>
-        /// Gets a particular contact.
-        /// </summary>
-        /// <param name="contact"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
+        /// Gets a particular contact.</summary>
         Contact Get ( int id );
 
         IEnumerable<Contact> GetAll ();

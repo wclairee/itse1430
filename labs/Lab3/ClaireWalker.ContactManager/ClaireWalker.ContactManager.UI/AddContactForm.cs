@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 using ContactManager;
 
-using Microsoft.VisualBasic.Devices;
 
 namespace ClaireWalker.ContactManager.UI
 {
@@ -28,8 +18,6 @@ namespace ClaireWalker.ContactManager.UI
         {
             if (!ValidateChildren())
                 return;
-
-            var btn = sender as Button;
 
             var contact = new Contact();
             contact.FirstName = _txtFirstName.Text;
@@ -74,7 +62,7 @@ namespace ClaireWalker.ContactManager.UI
         {
             var control = sender as TextBox;
 
-            if (IsValidEmail(control.Text))
+            if (String.IsNullOrEmpty(control.Text))
             {
                 //Not valid
                 _errors.SetError(control, "Email is required.");
@@ -84,11 +72,6 @@ namespace ClaireWalker.ContactManager.UI
                 //Valid
                 _errors.SetError(control, "");
             };
-        }
-
-        public bool IsValidEmail ( string source )
-        {
-            return MailAddress.TryCreate(source, out var address);
         }
 
         protected override void OnLoad ( EventArgs e )

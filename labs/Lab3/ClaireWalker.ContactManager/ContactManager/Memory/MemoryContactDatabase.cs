@@ -10,19 +10,16 @@
             return contact;
         }
 
-        private int _id = 1;
-        private List<Contact> _contacts = new List<Contact> ();
-
         protected override Contact GetCore ( int id )
         {
-            foreach ( var contact in _contacts )
+            foreach (var contact in _contacts)
                 if (contact?.Id == id)
                     return contact.Clone();
 
             return null;
         }
 
-        protected override IEnumerable <Contact> GetAllCore ()
+        protected override IEnumerable<Contact> GetAllCore ()
         {
             foreach (var contact in _contacts)
             {
@@ -49,7 +46,7 @@
             oldContact.Id = id;
         }
 
-        private Contact FindByID( int id )
+        private Contact FindByID ( int id )
         {
             foreach (var contact in _contacts)
                 if (contact.Id == id)
@@ -61,10 +58,13 @@
         protected override Contact FindByLastName ( string lastName )
         {
             foreach (var contact in _contacts)
-                if (String.Equals(contact.LastName, lastName , StringComparison.OrdinalIgnoreCase))
+                if (String.Equals(contact.LastName, lastName, StringComparison.OrdinalIgnoreCase))
                     return contact;
 
             return null;
         }
+
+        private int _id = 1;
+        private List<Contact> _contacts = new List<Contact>();
     }
 }

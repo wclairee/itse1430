@@ -5,14 +5,21 @@ namespace ContactManager
 {
     public class Contact : IValidatableObject 
     {
-        //public Contact () : this("", "")
-        //{
-        //}
+        public Contact () : this("", "")
+        {
+        }
 
-        //public Contact ( string lastName ) : this(lastName, "")
-        //{
-        //    LastName = lastName;
-        //}
+        public Contact ( string lastName ) : this(lastName, "")
+        {
+            LastName = lastName;
+        }
+
+        public Contact ( string lastName, string firstName ) : base()
+        {
+            LastName = lastName;
+            FirstName = firstName;
+        }
+
         public int Id { get; set; }
         public string FirstName 
         {
@@ -84,7 +91,8 @@ namespace ContactManager
             if (Email.Length == 0)
                 errors.Add(new ValidationResult("Email is required.", new[] { nameof(Email) }));
 
-            return errors;
+            return errors; 
+
         }
 
         public Contact Clone ()
