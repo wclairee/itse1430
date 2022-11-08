@@ -117,7 +117,7 @@ namespace MovieLibrary.WinHost
             if (initialLoad &&
                 //movies.Count() == 0)
                 //movies.FirstOrDefault() == null)
-                movies.Any())
+                !movies.Any())
             {
                 if (Confirm("Do you want to seed some movies?", "Database Empty"))
                 {
@@ -130,10 +130,16 @@ namespace MovieLibrary.WinHost
  
             _lstMovies.Items.Clear();
 
+            //How to treat functions as data
+            //Func<Movie, string> someFunc = OrderByTitle;
+            //var someResult = someFunc(new Movie());
+
             //Order movies by title, then by release year
-            var items = movies.OrderBy(OrderByTitle)
-                           .ThenBy(OrderByReleaseYear)
-                           .ToArray();
+            //var items = movies.OrderBy(OrderByTitle)
+            //               .ThenBy(OrderByReleaseYear)
+            var items = movies.OrderBy(x => x.Title)
+                              .ThenBy(x => x.ReleaseYear)
+                              .ToArray();
             //movies = movies.ThenBy();
 
             //Use Enumerable
@@ -143,15 +149,15 @@ namespace MovieLibrary.WinHost
             //    _lstMovies.Items.Add(movie);
 
         }
-        private string OrderByTitle ( Movie movie )
-        {
-            return movie.Title;
-        }
+        //private string OrderByTitle ( Movie movie )
+        //{
+        //    return movie.Title;
+        //}
 
-        private int OrderByReleaseYear( Movie movie )
-        {
-            return movie.ReleaseYear;
-        }
+        //private int OrderByReleaseYear( Movie movie )
+        //{
+        //    return movie.ReleaseYear;
+        //}
         private Movie GetSelectedMovie ()
         {
 

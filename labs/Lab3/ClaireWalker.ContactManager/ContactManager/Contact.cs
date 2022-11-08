@@ -5,13 +5,8 @@ namespace ContactManager
 {
     public class Contact : IValidatableObject 
     {
-        public Contact () : this("", "")
+        public Contact ()
         {
-        }
-
-        public Contact ( string lastName ) : this(lastName, "")
-        {
-            LastName = lastName;
         }
 
         public Contact ( string lastName, string firstName ) : base()
@@ -75,6 +70,12 @@ namespace ContactManager
         private string _notes;
 
         public bool IsFavorite { get; set; }
+
+        public override string ToString ()
+        {
+            var str = base.ToString();
+            return LastName;
+        }
 
         public bool IsValidEmail ( string source )
         {

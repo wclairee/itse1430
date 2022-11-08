@@ -1,5 +1,3 @@
-using System;
-
 using ContactManager;
 using ContactManager.Memory;
 
@@ -140,7 +138,7 @@ namespace ClaireWalker.ContactManager.UI
             var contacts = _contacts.GetAll();
 
             if (initialLoad &&
-                contacts.Any())
+                !contacts.Any())
             {
                 if (Confirm("Do you want to seed some contacts?", "Database Empty"))
                 {
