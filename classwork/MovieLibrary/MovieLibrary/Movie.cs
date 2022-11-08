@@ -28,17 +28,19 @@ namespace MovieLibrary
         /// <summary>Gets or sets the title.</summary>
         public string Title 
         {
-            get 
-            {
-                return _title ?? "";
-            }
-            set { _title = value?.Trim() ?? ""; }
+            //Expression body
+            //get { return _title ?? ""; }
+            // set { _title = value?.Trim() ?? ""; }
+            get => _title ?? "";
+            set => _title = value?.Trim() ?? "";
         }
         private string _title;
         public string  Description
-        { 
-            get { return _description ?? ""; }
-            set { _description = value?.Trim() ?? ""; }
+        {
+            //get { return _description ?? ""; }
+            //set { _description = value?.Trim() ?? ""; }
+            get => _description ?? "";
+            set => _description = value?.Trim() ?? "";
         }
         private string _description;
 
@@ -57,10 +59,11 @@ namespace MovieLibrary
         public bool IsClassic { get; set; }
 
         /// <summary> Determines if the movie is black and white. </summary>
-        public bool IsBlackAndWhite
-        {
-            get { return ReleaseYear < YearColorWasIntroduced; }
-        }
+        public bool IsBlackAndWhite => ReleaseYear < YearColorWasIntroduced;
+        //{
+        //    //get { return ReleaseYear < YearColorWasIntroduced; }
+        //    get => ReleaseYear < YearColorWasIntroduced;
+        //}
 
         public const int YearColorWasIntroduced = 1939;
 
@@ -87,11 +90,11 @@ namespace MovieLibrary
             movie.IsClassic = IsClassic;
         }
 
-        public override string ToString ()
-        {
-            var str = base.ToString();
-            return Title;
-        }
+        public override string ToString () => Title;
+        //{
+        //    var str = base.ToString();
+        //    return Title;
+        //}
 
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
