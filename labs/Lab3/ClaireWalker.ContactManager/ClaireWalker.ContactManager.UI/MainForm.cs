@@ -140,11 +140,8 @@ namespace ClaireWalker.ContactManager.UI
             if (initialLoad &&
                 !contacts.Any())
             {
-                if (Confirm("Do you want to seed some contacts?", "Database Empty"))
-                {
                     _contacts.Seed();
                     contacts = _contacts.GetAll();
-                };
 
             };
 

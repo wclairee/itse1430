@@ -6,10 +6,10 @@
         {
             var contacts = new Contact[] {
                 new Contact() {
-                    FirstName = "Bob",
-                    LastName = "Smith",
-                    Email = "bobsmith@yahoo.com",
-                    Notes = "",
+                    FirstName = "Bilbo",
+                    LastName = "Baggins",
+                    Email = "lordoftheshire@yahoo.com",
+                    Notes = "hobbit",
                     IsFavorite = true,
                 },
                 new Contact() {
@@ -17,13 +17,20 @@
                     LastName = "Doe",
                     Email = "johndoe01@yahoo.com",
                     Notes = "",
-                    IsFavorite = true,
+                    IsFavorite = false,
                 },
                 new Contact() {
                     FirstName = "Jane",
                     LastName = "Goodall",
                     Email = "ilovemonkeys@gmail.com",
-                    Notes = "",
+                    Notes = "Award winning scientist and author.",
+                    IsFavorite = true,
+                },
+                new Contact() {
+                    FirstName = "Bruce",
+                    LastName = "Wayne",
+                    Email = "notbatman@wayneenterprises.com",
+                    Notes = "Batman.",
                     IsFavorite = true,
                 }
             };

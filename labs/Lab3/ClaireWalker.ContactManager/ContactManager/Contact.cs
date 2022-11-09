@@ -50,7 +50,8 @@ namespace ContactManager
             }
             set 
             {
-                _email = value?.Trim() ?? "";
+                if (IsValidEmail( value))
+                    _email = value?.Trim() ?? "";
             }
         }
         private string _email;
@@ -74,7 +75,8 @@ namespace ContactManager
         public override string ToString ()
         {
             var str = base.ToString();
-            return LastName;
+            var contactinfo = $"{LastName}, {FirstName} \t {Email}";
+            return contactinfo;
         }
 
         public bool IsValidEmail ( string source )
