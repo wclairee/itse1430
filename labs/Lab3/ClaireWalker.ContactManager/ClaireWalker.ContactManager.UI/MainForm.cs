@@ -1,3 +1,7 @@
+//Claire Walker
+//ITSE 1430
+//Fall 2022
+
 using ContactManager;
 using ContactManager.Memory;
 
@@ -14,7 +18,7 @@ namespace ClaireWalker.ContactManager.UI
         {
             base.OnFormClosing(e);
 
-            if (Confirm("Are you sure you want to leave?", "Close"))
+            if (Confirm("Are you sure you want to exit?", "Close"))
                 return;
 
             //Stop the event

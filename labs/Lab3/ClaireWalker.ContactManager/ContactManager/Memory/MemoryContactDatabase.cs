@@ -1,7 +1,14 @@
-﻿namespace ContactManager.Memory
+﻿//Claire Walker
+//ITSE 1430
+//Fall 2022
+
+namespace ContactManager.Memory
 {
     public class MemoryContactDatabase : ContactDatabase
     {
+        /// <summary>Adds the contact to the database.</summary>
+        /// <param name="contact">The contact being added.</param>
+        /// <returns>The contact.</returns>
         protected override Contact AddCore ( Contact contact )
         {
             contact.Id = _id++;

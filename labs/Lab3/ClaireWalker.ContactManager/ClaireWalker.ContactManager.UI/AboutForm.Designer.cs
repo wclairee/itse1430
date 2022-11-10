@@ -148,7 +148,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(598, 482);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(598, 482);
             this.Name = "AboutForm";
             this.Padding = new System.Windows.Forms.Padding(12, 14, 12, 14);
             this.ShowIcon = false;

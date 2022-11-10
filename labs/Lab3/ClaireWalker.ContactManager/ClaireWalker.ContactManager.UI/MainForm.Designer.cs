@@ -84,14 +84,14 @@
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.addToolStripMenuItem.Text = "&Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.OnContactAdd);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.editToolStripMenuItem.Text = "&Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.OnContactEdit);
             // 
@@ -99,7 +99,7 @@
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(168, 26);
             this.deleteToolStripMenuItem.Text = "&Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnContactDelete);
             // 
@@ -128,6 +128,7 @@
             this._lstContacts.Name = "_lstContacts";
             this._lstContacts.Size = new System.Drawing.Size(854, 501);
             this._lstContacts.TabIndex = 1;
+            this._lstContacts.DoubleClick += new System.EventHandler(this.OnContactEdit);
             // 
             // MainForm
             // 
@@ -138,6 +139,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximumSize = new System.Drawing.Size(1000, 700);
+            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "MainForm";
             this.Text = "ContactManager.ClaireWalker";
             this.menuStrip1.ResumeLayout(false);

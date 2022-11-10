@@ -1,16 +1,18 @@
-﻿namespace ContactManager
+﻿//Claire Walker
+//ITSE 1430
+//Fall 2022
+
+namespace ContactManager
 {
     public abstract class ContactDatabase : IContactDatabase
     {
+        /// <summary>Adds a contact to the database.</summary>
+        /// <param name="contact">The contact to add.</param>
+        /// <param name="errorMessage">The error message.</param>
+        /// <returns>The created contact.</returns>
         public Contact Add ( Contact contact, out string errorMessage )
         {
-            /// <summary>
-            /// Gets a particular contact.
-            /// </summary>
-            /// <param name="contact"></param>
-            /// <param name="errorMessage"></param>
-            /// <returns></returns>
-      
+
             if ( contact == null )
             {
                 errorMessage = "Contact cannot be null.";
@@ -33,12 +35,11 @@
         }
 
         protected abstract Contact AddCore ( Contact contact );
-        /// <summary>
-        /// Gets a contact.
-        /// </summary>
-        /// <param name="id">Unique Id of the contact.</param>
-        /// <returns>The contact, if any.</returns>
-
+        
+        /// <summary>Gets a particular contact.</summary>
+        /// <param name="contact">The contact to get.</param>
+        /// <param name="errorMessage">The error message.</param>
+        /// <returns>The selected contact.</returns>       
         public Contact Get ( int id )
         {
             if (id <= 0)
@@ -48,10 +49,9 @@
         }
 
         protected abstract Contact GetCore ( int id );
-        /// <summary>
-        /// Gets all the contacts.</summary>
-        /// <returns> All the contacts.</returns>
 
+        /// <summary>Gets all the contacts.</summary>
+        /// <returns> All the contacts.</returns>
         public IEnumerable<Contact> GetAll ()
         {
             return GetAllCore();
@@ -59,6 +59,8 @@
 
         protected abstract IEnumerable<Contact> GetAllCore ();
 
+        /// <summary>Removes a particular contact.</summary>
+        /// <param name="id">The numeric contact identifier or ID.</param>
         public void Remove ( int id )
         {
             if (id <= 0)
@@ -68,14 +70,12 @@
         }
 
         protected abstract void RemoveCore ( int id );
-        /// <summary>
-        /// Updates a contact in the database.
-        /// </summary>
+
+        /// <summary>Updates a contact in the database.</summary>
         /// <param name="id">The ID of the contact.</param>
         /// <param name="contact">The new contact information.</param>
         /// <param name="errorMessage">The error message, if any.</param>
         /// <returns>True if successful or false if otherwise.</returns>
-
         public bool Update ( int id, Contact contact, out string errorMessage )
         {
             if (contact == null)

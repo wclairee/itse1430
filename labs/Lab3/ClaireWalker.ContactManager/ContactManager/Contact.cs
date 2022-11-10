@@ -1,19 +1,14 @@
-﻿using System.Net.Mail;
+﻿//Claire Walker
+//ITSE 1430
+//Fall 2022
+
+using System.Net.Mail;
 using System.ComponentModel.DataAnnotations;
 
 namespace ContactManager
 {
     public class Contact : IValidatableObject 
     {
-        public Contact ()
-        {
-        }
-
-        public Contact ( string lastName, string firstName ) : base()
-        {
-            LastName = lastName;
-            FirstName = firstName;
-        }
 
         public int Id { get; set; }
         public string FirstName 
@@ -75,7 +70,7 @@ namespace ContactManager
         public override string ToString ()
         {
             var str = base.ToString();
-            var contactinfo = $"{LastName}, {FirstName} \t {Email}";
+            var contactinfo = $"{LastName}\t,\t{FirstName}\t\t\t{Email}";
             return contactinfo;
         }
 

@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Claire Walker
+//ITSE 1430
+//Fall 2022
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;

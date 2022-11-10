@@ -1,7 +1,13 @@
-﻿namespace ContactManager
+﻿//Claire Walker
+//ITSE 1430
+//Fall 2022
+
+namespace ContactManager
 {
     public static class ContactDatabaseExtensions
     {
+        /// <summary>Seeds contacts into the database and list on loading.</summary>
+        /// <param name="database">The contact database.</param>
         public static void Seed ( this IContactDatabase database )
         {
             var contacts = new Contact[] {
