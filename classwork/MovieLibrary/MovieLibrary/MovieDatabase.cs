@@ -14,7 +14,7 @@
         ///   - Movie title already exists
         /// </remarks>
 
-        public Movie Add ( Movie movie, out string errorMessage )
+        public Movie Add ( Movie movie)
         {
             //Array
             //Find first null element
@@ -27,30 +27,16 @@
 
             //Validate movie
             if (movie == null)
-            {
-                errorMessage = "Movie cannot be null.";
-                return null;
-            };
-
-            //Use IValidatable Object
-            //if (!movie.Validate(out errorMessage))
-            if (!ObjectValidator.IsValid(movie, out errorMessage))
-                return null;
+                throw new ArgumentNullException(nameof(movie));
+            ObjectValidator.Validate(movie);
 
             //Must be unique
             var existing = FindByTitle(movie.Title);
             if (existing != null)
-            {
-                errorMessage = "Movie must be unique";
-                return null;
-            };
+                throw new InvalidOperationException("Movie title must be unique.");
 
             //Add
             movie = AddCore(movie);
-            //movie.Id = _id++;
-            //_movies.Add(movie.Clone());
-
-            errorMessage = null;
             return movie;
         }
 
@@ -65,9 +51,9 @@
         /// </remarks>
         public Movie Get ( int id )
         {
-            //TODO: Error
+            
             if (id <= 0)
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
             //foreach (var movie in _movies)
             //    if (movie?.Id == id)
@@ -112,7 +98,7 @@
         public void Remove ( int id )
         {
             if (id <= 0)
-                return;
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
             RemoveCore(id);
             //Enumerate array looking for match
@@ -139,39 +125,30 @@
         ///   - Movie title already exists
         /// </remarks>
 
-        public bool Update ( int id, Movie movie, out string errorMessage )
+        public void Update ( int id, Movie movie )
         {
             //Validate movie
-            if (movie == null)
-            {
-                errorMessage = "Movie cannot be null.";
-                return false;
-            };
-            if (!ObjectValidator.IsValid(movie, out errorMessage))
-                return false;
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
-            //Movie must already exist
+            if (movie == null)
+                throw new ArgumentOutOfRangeException(nameof(movie));
+
+            ObjectValidator.Validate(movie);
+
             var oldMovie = GetCore(id);
             if (oldMovie == null)
-            {
-                errorMessage = "Movie does not exist.";
-                return false;
-            };
+                throw new ArgumentException("Movie does not exist.", nameof(movie));
+
             //Must be unique
             var existing = FindByTitle(movie.Title);
             if (existing != null && existing.Id != id)
-            {
-                errorMessage = "Movie must be unique.";
-                return false;
-            };
+                throw new InvalidOperationException("Movie title must be unique.");
 
             UpdateCore(id, movie);
             ////Copy 
             //movie.CopyTo(oldMovie);
             //oldMovie.Id = id;
-
-            errorMessage = null;
-            return true;
         }
 
         protected abstract void UpdateCore ( int id, Movie movie );

@@ -34,11 +34,13 @@ namespace ContactManager
             return contact;
         }
 
+        /// <summary>Adds the contact to the database.</summary>
+        /// <param name="contact">The contact being added.</param>
+        /// <returns>The contact.</returns>
         protected abstract Contact AddCore ( Contact contact );
         
         /// <summary>Gets a particular contact.</summary>
-        /// <param name="contact">The contact to get.</param>
-        /// <param name="errorMessage">The error message.</param>
+        /// <param name="id">The ID of the contact to get.</param>
         /// <returns>The selected contact.</returns>       
         public Contact Get ( int id )
         {
@@ -48,6 +50,9 @@ namespace ContactManager
             return GetCore(id);
         }
 
+        /// <summary>Gets the particular contact from the database.</summary>
+        /// <param name="id">The ID of the contact.</param>
+        /// <returns>The selected contact.</returns>
         protected abstract Contact GetCore ( int id );
 
         /// <summary>Gets all the contacts.</summary>
@@ -57,6 +62,8 @@ namespace ContactManager
             return GetAllCore();
         }
 
+        /// <summary>Gets all the contacts from the database.</summary>
+        /// <returns>The list of contacts.</returns>
         protected abstract IEnumerable<Contact> GetAllCore ();
 
         /// <summary>Removes a particular contact.</summary>
@@ -69,9 +76,11 @@ namespace ContactManager
             RemoveCore(id);
         }
 
+        /// <summary>Removes the particular contact from the database.</summary>
+        /// <param name="id">The ID of the contact.</param>
         protected abstract void RemoveCore ( int id );
 
-        /// <summary>Updates a contact in the database.</summary>
+        /// <summary>Updates a contact.</summary>
         /// <param name="id">The ID of the contact.</param>
         /// <param name="contact">The new contact information.</param>
         /// <param name="errorMessage">The error message, if any.</param>
@@ -106,8 +115,14 @@ namespace ContactManager
             return true;
         }
 
+        /// <summary>Finds the contact selected by last name.</summary>
+        /// <param name="lastName">The last name of the contact.</param>
+        /// <returns>The particular matching contact.</returns>
         protected abstract Contact FindByLastName ( string lastName );
 
+        /// <summary>Updates the contact in the database.</summary>
+        /// <param name="id">The ID of the contact.</param>
+        /// <param name="contact">The new contact information.</param>
         protected abstract void UpdateCore ( int id, Contact contact );
     }
 }

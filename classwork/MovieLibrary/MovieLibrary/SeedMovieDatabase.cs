@@ -68,7 +68,7 @@
                 }
             };
             foreach (var movie in movies)
-                database.Add(movie, out var error);
+                database.Add(movie);
         }
     }
 }

@@ -40,13 +40,25 @@ namespace MovieLibrary.WinHost
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                if (_movies.Add(child.SelectedMovie, out var error) != null)
+                try
                 {
+                    _movies.Add(child.SelectedMovie);
                     UpdateUI();
                     return;
+                } catch (InvalidOperationException ex)
+                {
+                    DisplayError("Movies must be unique.", "Add Failed.");
+                } catch (ArgumentException ex)
+                {
+                    DisplayError("You messed up developer.", "Add Failed.");
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message, "Add Failed.");
                 };
 
-                DisplayError(error, "Add Failed");
+
+
+
             } while (true);
         }
 
@@ -58,6 +70,15 @@ namespace MovieLibrary.WinHost
 
             if (!Confirm($"Are you sure you want to delete '{movie.Title}'?", "Delete"))
                 return;
+
+            try
+            {
+                _movies.Remove(movie.Id);
+                UpdateUI();
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message, "Delete Failed.");
+            };
 
             _movies.Remove(movie.Id);
             UpdateUI();
@@ -76,14 +97,17 @@ namespace MovieLibrary.WinHost
             {
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
-
-                if (_movies.Update(movie.Id, child.SelectedMovie, out var error))
+                try
                 {
+                    _movies.Update(movie.Id, child.SelectedMovie);
                     UpdateUI();
-                    return;
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message, "Update Failed.");
                 };
 
-                DisplayError(error, "Update Failed.");
+
+
             } while (true);
 
         }

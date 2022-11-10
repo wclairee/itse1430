@@ -93,7 +93,6 @@ namespace ClaireWalker.ContactManager.UI
             UpdateUI();
         }
 
-
         private void OnFileExit ( object sender, EventArgs e )
         {
             Close();
@@ -131,7 +130,6 @@ namespace ClaireWalker.ContactManager.UI
         {
             return _lstContacts.SelectedItem as Contact;
         }
-
 
         private void UpdateUI ()
         {

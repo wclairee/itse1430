@@ -19,6 +19,11 @@ namespace MovieLibrary
             return true;
         }
 
+        public static void Validate ( IValidatableObject instance )
+        {
+            Validator.ValidateObject(instance, new ValidationContext(instance), true);
+        }
+
         //private int _unused;
     }
 }

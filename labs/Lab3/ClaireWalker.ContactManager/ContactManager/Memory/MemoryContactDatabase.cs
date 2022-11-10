@@ -6,9 +6,7 @@ namespace ContactManager.Memory
 {
     public class MemoryContactDatabase : ContactDatabase
     {
-        /// <summary>Adds the contact to the database.</summary>
-        /// <param name="contact">The contact being added.</param>
-        /// <returns>The contact.</returns>
+
         protected override Contact AddCore ( Contact contact )
         {
             contact.Id = _id++;
@@ -36,11 +34,9 @@ namespace ContactManager.Memory
 
         protected override void RemoveCore ( int id )
         {
-            //Enumerate array looking for match
             for (var index = 0; index < _contacts.Count; ++index)
                 if (_contacts[index]?.Id == id)
                 {
-                    //_movies[index] = null;
                     _contacts.RemoveAt(index);
                     return;
                 };

@@ -2,14 +2,8 @@
 //ITSE 1430
 //Fall 2022
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace ClaireWalker.ContactManager.UI
 {
@@ -39,7 +33,9 @@ namespace ClaireWalker.ContactManager.UI
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+#pragma warning disable SYSLIB0012 // Type or member is obsolete
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+#pragma warning restore SYSLIB0012 // Type or member is obsolete
             }
         }
 
