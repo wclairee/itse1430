@@ -54,6 +54,10 @@ namespace MovieLibrary.WinHost
                 } catch (Exception ex)
                 {
                     DisplayError(ex.Message, "Add Failed.");
+
+                    //rethrow
+                    //throw ex;
+                    //throw;
                 };
 
 
@@ -99,14 +103,21 @@ namespace MovieLibrary.WinHost
                     return;
                 try
                 {
+                    Cursor = Cursors.WaitCursor;
                     _movies.Update(movie.Id, child.SelectedMovie);
+                    System.Threading.Thread.Sleep(1000);
+                    //Cursor = Cursors.Default;
+
                     UpdateUI();
                 } catch (Exception ex)
                 {
+                    //Cursor = Cursors.Default;
                     DisplayError(ex.Message, "Update Failed.");
+                } finally
+                {
+                    //Guaranteed to run
+                    Cursor = Cursors.Default;
                 };
-
-
 
             } while (true);
 
