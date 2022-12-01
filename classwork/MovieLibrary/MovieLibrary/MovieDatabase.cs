@@ -35,6 +35,8 @@
             if (existing != null)
                 throw new InvalidOperationException("Movie title must be unique.");
 
+            movie.OldMethod();
+
             //Add
             movie = AddCore(movie);
             return movie;

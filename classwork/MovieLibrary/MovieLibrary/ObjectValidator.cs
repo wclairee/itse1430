@@ -6,7 +6,7 @@ namespace MovieLibrary
     {
        // private ObjectValidator() { }
 
-        public static bool IsValid ( IValidatableObject instance, out string errorMessage )
+        public static bool IsValid ( object instance, out string errorMessage )
         {
             var results = new List<ValidationResult>();
             if (!Validator.TryValidateObject(instance, new ValidationContext(instance), results, true))
@@ -19,7 +19,7 @@ namespace MovieLibrary
             return true;
         }
 
-        public static void Validate ( IValidatableObject instance )
+        public static void Validate ( object instance )
         {
             Validator.ValidateObject(instance, new ValidationContext(instance), true);
         }
