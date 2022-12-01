@@ -22,6 +22,8 @@ namespace ClaireWalker.ContactManager.UI
             if (!ValidateChildren())
                 return;
 
+            var btn = sender as Button;
+
             var contact = new Contact();
             contact.FirstName = _txtFirstName.Text;
             contact.LastName = _txtLastName.Text;
@@ -34,6 +36,7 @@ namespace ClaireWalker.ContactManager.UI
                 DisplayError(error, "Save");
                 return;
             };
+
 
             SelectedContact = contact;
             DialogResult = DialogResult.OK;
