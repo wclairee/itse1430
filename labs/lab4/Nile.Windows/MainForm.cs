@@ -1,8 +1,6 @@
 /*
  * ITSE 1430
  */
-using Microsoft.VisualBasic.Devices;
-
 namespace Nile.Windows
 {
     public partial class MainForm : Form
@@ -47,10 +45,10 @@ namespace Nile.Windows
                     _database.Add(child.Product);
                     UpdateList();
                     return;
-                } catch (InvalidOperationException ex)
+                } catch (InvalidOperationException)
                 {
                     DisplayError("Products must be unique.", "Add Failed.");
-                } catch (ArgumentException ex)
+                } catch (ArgumentException)
                 {
                     DisplayError("You messed up developer.", "Add Failed.");
                 } catch (Exception ex)
@@ -160,18 +158,15 @@ namespace Nile.Windows
                 try
                 {
                     Cursor = Cursors.WaitCursor;
-                    _database.Update(child.Product);
+                    _database.Update(product.Id, child.Product);
                     System.Threading.Thread.Sleep(1000);
-                    //Cursor = Cursors.Default;
 
                     UpdateList();
                 } catch (Exception ex)
                 {
-                    //Cursor = Cursors.Default;
                     DisplayError(ex.Message, "Update Failed.");
                 } finally
                 {
-                    //Guaranteed to run
                     Cursor = Cursors.Default;
                 };
 
@@ -191,10 +186,13 @@ namespace Nile.Windows
 
         private void UpdateList ()
         {
-            //TODO: Handle errors-completed?
+            var products = _database.GetAll();
+            var items = products.OrderBy(x => x.Name);
+
+            //TODO: Handle errors-completed
             try
             {
-                _bsProducts.DataSource = _database.GetAll();
+                _gridProducts.DataSource = _database.GetAll();
             } catch (Exception ex)
             {
                 DisplayError(ex.Message, "Update Failed.");
@@ -206,7 +204,7 @@ namespace Nile.Windows
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _database = new Stores.Sql.SqlProductDatabase(Program.GetConnectionString("ProductDatabase"));
         #endregion
     }
 }

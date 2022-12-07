@@ -44,16 +44,23 @@ namespace Nile.Stores
         }
 
         /// <inheritdoc />
-        protected override Product UpdateCore ( Product existing, Product product )
+        protected override Product FindByName ( string name )
+        {
+            return _products.FirstOrDefault(
+                x => String.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <inheritdoc />
+        protected override void UpdateCore ( Product product )
         {
             //Replace 
-            existing = FindProduct(product.Id);
+            var existing = FindProduct(product.Id);
             _products.Remove(existing);
-            
+            if (existing == null)
+                throw new NotSupportedException("Product does not exist.");
+
             var newProduct = CopyProduct(product);
             _products.Add(newProduct);
-
-            return CopyProduct(newProduct);
         }
 
         #region Private Members

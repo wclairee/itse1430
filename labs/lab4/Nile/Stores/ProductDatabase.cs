@@ -13,6 +13,10 @@ namespace Nile.Stores
             if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
+            var existing = FindByName(product.Name);
+            if (existing != null)
+                throw new InvalidOperationException("Product name must be unique.");
+
             //TODO: Validate product-completed
             ObjectValidator.Validate(product);
 
@@ -47,7 +51,7 @@ namespace Nile.Stores
         }
 
         /// <inheritdoc />
-        public void Update ( Product product )
+        public void Update ( int id, Product product )
         {
             //TODO: Check arguments
             if (product == null)
@@ -57,13 +61,17 @@ namespace Nile.Stores
             ObjectValidator.Validate(product);
 
             //Get existing product
-            var existing = GetCore(product.Id);
-            if (existing == null)
+            var oldProduct = GetCore(product.Id);
+            if (oldProduct == null)
                 throw new ArgumentException("Product does not exist.", nameof(product));
 
+            var existing = FindByName(product.Name);
+            if (existing != null && existing.Id != id)
+                throw new InvalidOperationException("Product name must be unique.");
+           
             try
             {
-                UpdateCore(existing, product);
+                UpdateCore(product);
             } catch (Exception e)
             {
                 throw new Exception("Update failed", e);
@@ -78,9 +86,11 @@ namespace Nile.Stores
 
         protected abstract void RemoveCore( int id );
 
-        protected abstract Product UpdateCore( Product existing, Product newItem );
+        protected abstract void UpdateCore( Product product );
 
         protected abstract Product AddCore( Product product );
+
+        protected abstract Product FindByName ( string name );
         #endregion
     }
 }

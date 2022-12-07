@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nile.Stores.Sql\Nile.Stores.Sql.csproj" />
     <ProjectReference Include="..\Nile\Nile.csproj" />
   </ItemGroup>  
 </Project>
