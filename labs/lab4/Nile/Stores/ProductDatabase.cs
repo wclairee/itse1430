@@ -9,9 +9,12 @@ namespace Nile.Stores
         /// <inheritdoc />
         public Product Add ( Product product )
         {
-            //TODO: Check arguments
+            //TODO: Check arguments-completed
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
 
-            //TODO: Validate product
+            //TODO: Validate product-completed
+            ObjectValidator.Validate(product);
 
             //Emulate database by storing copy
             return AddCore(product);
@@ -20,7 +23,9 @@ namespace Nile.Stores
         /// <inheritdoc />
         public Product Get ( int id )
         {
-            //TODO: Check arguments
+            //TODO: Check arguments-completed
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be >= 0.");
 
             return GetCore(id);
         }
@@ -34,22 +39,35 @@ namespace Nile.Stores
         /// <inheritdoc />
         public void Remove ( int id )
         {
-            //TODO: Check arguments
+            //TODO: Check arguments-completed
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be >= 0.");
 
             RemoveCore(id);
         }
 
         /// <inheritdoc />
-        public Product Update ( Product product )
+        public void Update ( Product product )
         {
             //TODO: Check arguments
+            if (product == null)
+                throw new ArgumentNullException(nameof(product));
 
-            //TODO: Validate product
+            //TODO: Validate product-completed
+            ObjectValidator.Validate(product);
 
             //Get existing product
             var existing = GetCore(product.Id);
+            if (existing == null)
+                throw new ArgumentException("Product does not exist.", nameof(product));
 
-            return UpdateCore(existing, product);
+            try
+            {
+                UpdateCore(existing, product);
+            } catch (Exception e)
+            {
+                throw new Exception("Update failed", e);
+            };
         }
 
         #region Protected Members

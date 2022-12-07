@@ -3,6 +3,8 @@
  */
 using System.ComponentModel;
 
+using Microsoft.VisualBasic.Devices;
+
 namespace Nile.Windows
 {
     public partial class ProductDetailForm : Form
@@ -58,6 +60,8 @@ namespace Nile.Windows
                 return;
             };
 
+            var btn = sender as Button;
+
             var product = new Product()
             {
                 Id = Product?.Id ?? 0,
@@ -67,11 +71,21 @@ namespace Nile.Windows
                 IsDiscontinued = _chkDiscontinued.Checked,
             };
 
-            //TODO: Validate product
+            //TODO: Validate product-completed
+            if (!ObjectValidator.IsValid(product, out var error))
+            {
+                DisplayError(error, "Save");
+                return;
+            };
 
             Product = product;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void OnValidatingName ( object sender, CancelEventArgs e )

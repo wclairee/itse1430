@@ -1,6 +1,8 @@
 /*
  * ITSE 1430
  */
+using Microsoft.VisualBasic.Devices;
+
 namespace Nile.Windows
 {
     public partial class MainForm : Form
@@ -33,13 +35,34 @@ namespace Nile.Windows
         private void OnProductAdd( object sender, EventArgs e )
         {
             var child = new ProductDetailForm("Product Details");
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
 
-            //TODO: Handle errors
+            //TODO: Handle errors-completed
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    _database.Add(child.Product);
+                    UpdateList();
+                    return;
+                } catch (InvalidOperationException ex)
+                {
+                    DisplayError("Products must be unique.", "Add Failed.");
+                } catch (ArgumentException ex)
+                {
+                    DisplayError("You messed up developer.", "Add Failed.");
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message, "Add Failed.");
+                };
+
+            } while (true);
+
             //Save product
-            _database.Add(child.Product);
-            UpdateList();
+            //_database.Add(child.Product);
+            //UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -108,7 +131,15 @@ namespace Nile.Windows
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: Handle errors
+            //TODO: Handle errors-completed
+            try
+            {
+                _database.Remove(product.Id);
+                UpdateList();
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message, "Delete Failed.");
+            };
             //Delete product
             _database.Remove(product.Id);
             UpdateList();
@@ -118,13 +149,36 @@ namespace Nile.Windows
         {
             var child = new ProductDetailForm("Product Details");
             child.Product = product;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            //if (child.ShowDialog(this) != DialogResult.OK)
+            //    return;
 
-            //TODO: Handle errors
+            //TODO: Handle errors-completed
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                try
+                {
+                    Cursor = Cursors.WaitCursor;
+                    _database.Update(child.Product);
+                    System.Threading.Thread.Sleep(1000);
+                    //Cursor = Cursors.Default;
+
+                    UpdateList();
+                } catch (Exception ex)
+                {
+                    //Cursor = Cursors.Default;
+                    DisplayError(ex.Message, "Update Failed.");
+                } finally
+                {
+                    //Guaranteed to run
+                    Cursor = Cursors.Default;
+                };
+
+            } while (true);
             //Save product
-            _database.Update(child.Product);
-            UpdateList();
+            //_database.Update(child.Product);
+            //UpdateList();
         }
 
         private Product GetSelectedProduct ()
@@ -137,9 +191,19 @@ namespace Nile.Windows
 
         private void UpdateList ()
         {
-            //TODO: Handle errors
+            //TODO: Handle errors-completed?
+            try
+            {
+                _bsProducts.DataSource = _database.GetAll();
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message, "Update Failed.");
+            };
+        }
 
-            _bsProducts.DataSource = _database.GetAll();
+        private void DisplayError ( string message, string title )
+        {
+            MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
