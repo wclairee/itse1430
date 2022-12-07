@@ -1,5 +1,7 @@
 /*
+ * Claire Walker
  * ITSE 1430
+ * Fall 2022
  */
 namespace Nile
 {

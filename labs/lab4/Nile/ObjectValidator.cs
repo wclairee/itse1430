@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Claire Walker
+ * ITSE 1430
+ * Fall 2022
+ */
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nile
 {
