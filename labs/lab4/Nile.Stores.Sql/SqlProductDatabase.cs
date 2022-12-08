@@ -41,7 +41,7 @@ namespace Nile.Stores.Sql
         {
             using (var conn = OpenConnection())
             {
-                var cmd = new SqlCommand("FindByName", conn);
+                var cmd = new SqlCommand("GetAllProducts", conn);
                 cmd.Parameters.AddWithValue("@name", name);
 
                 using (var reader = cmd.ExecuteReader())

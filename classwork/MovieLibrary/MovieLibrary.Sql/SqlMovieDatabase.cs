@@ -174,7 +174,7 @@ namespace MovieLibrary.Sql
                 cmd.CommandText = "UpdateMovie";
                 cmd.Connection = conn;
                 cmd.CommandType = CommandType.StoredProcedure;
-
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@name", movie.Title);
                 cmd.Parameters.AddWithValue("@rating", movie.Rating);
                 cmd.Parameters.AddWithValue("@description", movie.Description);

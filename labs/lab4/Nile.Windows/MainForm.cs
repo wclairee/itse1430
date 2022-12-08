@@ -10,6 +10,7 @@ namespace Nile.Windows
         public MainForm()
         {
             InitializeComponent();
+            _gridProducts.DataSource = _bsProducts;
         }
         #endregion
 
@@ -17,7 +18,7 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            _gridProducts.AutoGenerateColumns = false;
+            //_gridProducts.AutoGenerateColumns = false;
 
             var connString = Program.GetConnectionString("ProductDatabase");
             UpdateList();
@@ -192,7 +193,7 @@ namespace Nile.Windows
             //TODO: Handle errors-completed
             try
             {
-                _gridProducts.DataSource = _database.GetAll();
+                _bsProducts.DataSource = items.ToList();
             } catch (Exception ex)
             {
                 DisplayError(ex.Message, "Update Failed.");

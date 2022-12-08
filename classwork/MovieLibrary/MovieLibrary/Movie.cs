@@ -68,13 +68,13 @@ namespace MovieLibrary
         public bool IsClassic { get; set; }
 
         /// <summary> Determines if the movie is black and white. </summary>
-        public bool IsBlackAndWhite => ReleaseYear < YearColorWasIntroduced;
+        //public bool IsBlackAndWhite => ReleaseYear < YearColorWasIntroduced;
         //{
         //    //get { return ReleaseYear < YearColorWasIntroduced; }
         //    get => ReleaseYear < YearColorWasIntroduced;
         //}
 
-        public const int YearColorWasIntroduced = 1939;
+        //public const int YearColorWasIntroduced = 1939;
 
         /// <summary>Clones the existing movie.</summary>
         /// <returns>A copy of the movie.</returns>

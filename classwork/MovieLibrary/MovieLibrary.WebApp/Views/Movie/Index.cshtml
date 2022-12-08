@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MovieLibrary.Movie>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "List";
 }
 
-<h1>Index</h1>
+<h1>Movie List</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,9 +32,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsClassic)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsBlackAndWhite)
             </th>
             <th></th>
         </tr>
@@ -64,12 +61,9 @@
                 @Html.DisplayFor(modelItem => item.IsClassic)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsBlackAndWhite)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }
