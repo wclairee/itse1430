@@ -5,6 +5,7 @@
  */
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 using System.Xml.Linq;
 
 namespace Nile.Stores.Sql
@@ -41,25 +42,30 @@ namespace Nile.Stores.Sql
         {
             using (var conn = OpenConnection())
             {
-                var cmd = new SqlCommand("GetAllProducts", conn);
-                cmd.Parameters.AddWithValue("@name", name);
-
-                using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    var cmd = new SqlCommand("GetAllProducts", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        return new Product() {
-                            Id = reader.GetFieldValue<int>("Id"),
-                            Name = reader.GetFieldValue<string>("Name"),
-                            Description = reader.GetFieldValue<string>("Description"),
-                            Price = reader.GetFieldValue<decimal>("Price"),
-                            IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
+                        while (reader.Read())
+                        {
+                            if (reader.Equals(name))
+                            {
+                                return new Product() {
+                                    Id = reader.GetFieldValue<int>("Id"),
+                                    Name = reader.GetFieldValue<string>("Name"),
+                                    Description = reader.GetFieldValue<string>("Description"),
+                                    Price = reader.GetFieldValue<decimal>("Price"),
+                                    IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
+                                };
+                            };
                         };
                     };
                 };
-            };
 
-            return null;
+                return null;
+            };
         }
 
         protected override IEnumerable<Product> GetAllCore ()
